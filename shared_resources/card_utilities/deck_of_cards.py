@@ -11,24 +11,23 @@ class StandardCardDeck(object):
         :param jokers: Boolean for jokers in deck
         """
         # Class public variables
-        self.game_cards = self.__get_deck_for_game()
+        self.game_cards = self.__get_deck_for_game(count, jokers)
 
         # Class private variables
         self.__deck_count = count
-        self.__jokers = jokers
 
-    def __get_deck_for_game(self):
+    def __get_deck_for_game(self, count, jokers):
         """
         Get the total game deck based on the initialized variables
         :return:
         """
         deck = []
-        if self.__jokers:
+        if jokers:
             cards = self.__generate_default_54_card_deck_2_jokers()
         else:
             cards = self.__generate_default_52_card_deck()
-        for x in range(self.__deck_count):
-            deck.append(cards)
+        for x in range(count):
+            deck.extend(cards)
         return deck
 
     def __generate_default_52_card_deck(self):
@@ -54,7 +53,7 @@ class StandardCardDeck(object):
         """
         deck = []
         cards = ['A', 'K', 'Q', 'J']
-        for num in range(2, 10):
+        for num in range(2, 11):
             cards.append(str(num))
         for suit in ['Spades', 'Clubs', 'Diamonds', 'Hearts']:
             for card in cards:
