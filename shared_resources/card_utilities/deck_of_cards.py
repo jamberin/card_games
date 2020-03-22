@@ -4,17 +4,13 @@
 class StandardCardDeck(object):
     """ Handling the generation of a standard 52 card deck """
 
-    def __init__(self, count, jokers=False):
+    def __init__(self, count=1, jokers=False):
         """
-        Initialize class variables
+        Initialize Class
         :param count: Number of decks to be included in the generation
         :param jokers: Boolean for jokers in deck
         """
-        # Class public variables
         self.game_cards = self.__get_deck_for_game(count, jokers)
-
-        # Class private variables
-        self.__deck_count = count
 
     def __get_deck_for_game(self, count, jokers):
         """
@@ -68,4 +64,42 @@ class StandardCardDeck(object):
                 'card': 'JOKER'
             }
             deck.append(card_object)
+        return deck
+
+
+class EuchreCardDeck(object):
+    """ Game deck for euchre game """
+
+    def __init__(self, count=1):
+        """
+        Initialize Class
+        :param count:
+        """
+        self.game_cards = self.__get_deck_for_game(count)
+
+    @staticmethod
+    def __get_default_deck():
+        """ Generates a default deck of cards for a game of euchre """
+        deck = []
+        cards = ['A', 'K', 'Q', 'J']
+        for num in range(7, 11):
+            cards.append(str(num))
+        for suit in ['Spades', 'Clubs', 'Diamonds', 'Hearts']:
+            for card in cards:
+                card_object = {
+                    'suit': suit,
+                    'card': card
+                }
+                deck.append(card_object)
+        return deck
+
+    def __get_deck_for_game(self, count):
+        """
+        Get the total game deck based on the initialized variables
+        :return:
+        """
+        deck = []
+        cards = self.__get_default_deck()
+        for x in range(count):
+            deck.extend(cards)
         return deck
